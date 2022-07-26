@@ -3,9 +3,13 @@ package home.owner.config;
 import org.aeonbits.owner.Config;
 
 @Config.Sources(
-        "classpath:${host}.properties"
+        "classpath:config/${hostName}.properties"
 )
 public interface PracticeFormWithPageObjectConfig extends Config {
+
+    @Key("remoteWebDriverUrl")
+//    @DefaultValue("http://localhost:4444/wd/hub")
+    String getRemoteUrl();
 
     @Key("browser")
     @DefaultValue("CHROME")
@@ -23,7 +27,4 @@ public interface PracticeFormWithPageObjectConfig extends Config {
     @DefaultValue("1920x1079")
     String getBrowserSize();
 
-    @Key("remoteWebDriverUrl")
-//    @DefaultValue("http://localhost:4444/wd/hub")
-    String getRemoteUrl();
 }
