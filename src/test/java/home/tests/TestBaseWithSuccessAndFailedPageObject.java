@@ -1,6 +1,8 @@
 package home.tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import home.helpers.Attach;
 import home.owner.config.PracticeFormWithPageObjectConfig;
@@ -41,14 +43,14 @@ public class TestBaseWithSuccessAndFailedPageObject {
     @AfterEach
     void afterEach() {
         PracticeFormWithPageObjectConfig webDriverConfig = ConfigFactory.create(PracticeFormWithPageObjectConfig.class, System.getProperties());
-
-
         String videoUrlPath = webDriverConfig.getVideoUrlPath();
 
         Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
         Attach.browserConsoleLogs();
         Attach.addVideo(videoUrlPath);
+
+        Selenide.closeWebDriver();
     }
 
 }
