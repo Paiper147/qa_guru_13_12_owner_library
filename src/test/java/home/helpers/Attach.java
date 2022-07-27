@@ -1,7 +1,9 @@
 package home.helpers;
 
 import com.codeborne.selenide.Selenide;
+import home.owner.config.PracticeFormWithPageObjectConfig;
 import io.qameta.allure.Attachment;
+import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -14,6 +16,9 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.openqa.selenium.logging.LogType.BROWSER;
 
 public class Attach {
+
+    PracticeFormWithPageObjectConfig webDriverConfig = ConfigFactory.create(PracticeFormWithPageObjectConfig.class, System.getProperties());
+
     @Attachment(value = "{attachName}", type = "image/png")
     public static byte[] screenshotAs(String attachName) {
         return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
@@ -37,14 +42,14 @@ public class Attach {
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String addVideo() {
+    public static String addVideo(String videoUrlPath) {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + getVideoUrl()
+                + getVideoUrl(videoUrlPath)
                 + "' type='video/mp4'></video></body></html>";
     }
 
-    public static URL getVideoUrl() {
-        String videoURL = "https://selenoid.autotests.cloud/video/" + getSessionId() + ".mp4";
+    public static URL getVideoUrl(String videoUrlPath) {
+        String videoURL = videoUrlPath + getSessionId() + ".mp4";
         try {
             return new URL(videoURL);
         } catch (MalformedURLException e) {

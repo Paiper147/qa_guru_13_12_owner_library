@@ -68,12 +68,14 @@ task webDriverTestOld_test(type: Test) {
 }
 
 task webDriverTestOwner_test(type: Test) {
+    systemProperties(System.getProperties())
     useJUnitPlatform {
         includeTags 'webDriverTestOwner'
     }
 }
 
 task successAndFailedPracticeFormWithPageObjectTests_test(type: Test) {
+    systemProperties(System.getProperties())
     useJUnitPlatform {
         includeTags 'successAndFailedPracticeFormWithPageObjectTests'
     }
